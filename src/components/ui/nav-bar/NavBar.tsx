@@ -1,0 +1,98 @@
+'use client'
+
+import { styled } from '@mui/material/styles'
+import dynamic from 'next/dynamic'
+import { SyntheticEvent, useState } from 'react'
+
+import styles from './NavBar.module.scss'
+import { routes } from '@/shared/routes-list.data'
+import { scrollTo } from '@/utils/scroll-to/scrollTo'
+
+const DynamicTab = dynamic(() => import('@mui/material/Tab'), {
+	ssr: false,
+})
+
+const DynamicTabs = dynamic(() => import('@mui/material/Tabs'), {
+	ssr: false,
+})
+
+interface StyledTabProps {
+	label: string
+	value: string
+}
+
+const CustomTabs = styled(DynamicTabs)({
+	'& .MuiTabs-indicator': {
+		backgroundColor: '#353535',
+		height: '4px',
+	},
+})
+
+const CustomTab = styled((props: StyledTabProps) => (
+	<DynamicTab disableRipple {...props} />
+))(({ theme }) => ({
+	textTransform: 'none',
+	minWidth: 0,
+	[theme.breakpoints.up('tabletXs')]: {
+		minWidth: 0,
+	},
+	// fontWeight: theme.typography.fontWeightRegular,
+	color: 'rgba(0, 0, 0, 0.85)',
+	fontFamily: 'var(--font-raleway)',
+	'@media (hover: hover)': {
+		'&:hover': {
+			color: '#0064fa',
+			opacity: 1,
+		},
+	},
+	'@media (hover: none)': {
+		'&:active': {
+			color: '#0064fa',
+			opacity: 1,
+		},
+	},
+	'&.Mui-selected': {
+		color: '#353535',
+		// fontWeight: theme.typography.fontWeightRegular,
+	},
+	'&.Mui-focusVisible': {
+		backgroundColor: '#d1eaff',
+	},
+	transition: 'color 0.3s ease-in-out',
+	lineHeight: '24px',
+}))
+
+export default function NavBar() {
+	// const matches = useMediaQuery('(min-width:891px)')
+	const [value, setValue] = useState(routes[0].href)
+
+	const handleChange = (event: SyntheticEvent, newValue: string) => {
+		setValue(newValue)
+		scrollTo(newValue)
+	}
+
+	return (
+		<>
+			<div className={styles.wrapper}>
+				<CustomTabs
+					value={value}
+					onChange={handleChange}
+					aria-label='navigation'
+					role={'navigation'}
+					className={styles.custom_tabs}
+				>
+					{routes.map((route, index) => {
+						return (
+							<CustomTab
+								aria-label={`Перейти к ${route.title}`}
+								value={route.href}
+								label={route.title}
+								key={index}
+							/>
+						)
+					})}
+				</CustomTabs>
+			</div>
+		</>
+	)
+}
