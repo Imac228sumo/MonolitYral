@@ -16,6 +16,6 @@ export const mailOptions = () => {
 	return {
 		from: email || 'Мне',
 		to: email || 'Мой сайт',
-		subject: domain || 'СПЕЦМОНОЛИТ',
+		subject: domain || 'МОНОЛИТУРАЛ',
 	}
 }

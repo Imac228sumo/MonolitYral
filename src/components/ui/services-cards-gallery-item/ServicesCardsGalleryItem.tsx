@@ -1,3 +1,5 @@
+import { Paper, styled } from '@mui/material'
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import cn from 'classnames'
 import Image from 'next/image'
 import { lazy } from 'react'
@@ -19,6 +21,17 @@ const ServicesCardsGalleryItem = ({
 	item,
 	handleOpen,
 }: ServicesCardsGalleryItemProps) => {
+	const ServicesCardsItem = styled(Paper)(({ theme }) => ({
+		transitionProperty: 'transform',
+		transitionTimingFunction: 'ease-in-out',
+		transitionDuration: '200ms',
+		width: '100%',
+		padding: '0px',
+		boxShadow: 'none',
+		backgroundColor: '#aaaaaa',
+		borderRadius: '0px',
+	}))
+
 	const handleChange = () => {
 		setTimeout(() => {
 			handleOpen()
@@ -26,7 +39,7 @@ const ServicesCardsGalleryItem = ({
 	}
 
 	return (
-		<LazyGrid2
+		<Grid2
 			mobileXs={1}
 			mobile={1}
 			tablet={1}
@@ -35,7 +48,7 @@ const ServicesCardsGalleryItem = ({
 			desktop={1}
 			padding='5px 5px 5px 5px'
 		>
-			<LazyServicesCardsItem className={cn(styles.item)}>
+			<ServicesCardsItem className={cn(styles.item)}>
 				<div
 					onClick={() => handleChange()}
 					className={cn({
@@ -49,6 +62,7 @@ const ServicesCardsGalleryItem = ({
 								title={item.subTitle}
 								about={item.descriptions}
 								src={item.image}
+								priority
 								draggable={false}
 								sizes='100%'
 								style={{
@@ -90,8 +104,8 @@ const ServicesCardsGalleryItem = ({
 						</>
 					)}
 				</div>
-			</LazyServicesCardsItem>
-		</LazyGrid2>
+			</ServicesCardsItem>
+		</Grid2>
 	)
 }
 

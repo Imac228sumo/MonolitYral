@@ -67,6 +67,7 @@ export default async function Slider({
 				>
 					<>
 						<Image
+							priority
 							about={slide.title + (slide.caption || slide.subTitle)}
 							title={slide.seoTitle}
 							alt={`photo of the floor\n ${slide.title}`}

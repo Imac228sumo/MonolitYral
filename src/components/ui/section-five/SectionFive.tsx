@@ -1,14 +1,16 @@
 import { Box, ThemeProvider } from '@mui/material'
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import createTheme from '@mui/material/styles/createTheme'
-import { Suspense, lazy } from 'react'
+
+import ServicesCardsGalleryItem from '../services-cards-gallery-item/ServicesCardsGalleryItem'
 
 import styles from './SectionFive.module.scss'
 import { servicesCardsList } from '@/shared/services-cards-list-item.data'
 
-const LazyServicesCardsGalleryItem = lazy(
-	() => import('../services-cards-gallery-item/ServicesCardsGalleryItem')
-)
-const LazyGrid2 = lazy(() => import('@mui/material/Unstable_Grid2/Grid2'))
+// const LazyServicesCardsGalleryItem = lazy(
+// 	() => import('../services-cards-gallery-item/ServicesCardsGalleryItem')
+// )
+// const LazyGrid2 = lazy(() => import('@mui/material/Unstable_Grid2/Grid2'))
 
 declare module '@mui/system' {
 	interface BreakpointOverrides {
@@ -52,31 +54,29 @@ export default function SectionFive({
 							},
 						})}
 					>
-						<Suspense>
-							<LazyGrid2
-								width={'100%'}
-								container
-								spacing={0}
-								columns={{
-									mobileXs: 1,
-									mobile: 1,
-									tabletXs: 2,
-									tablet: 2,
-									laptop: 3,
-									desktop: 3,
-								}}
-							>
-								{servicesCardsList.items.map((item, index) => {
-									return (
-										<LazyServicesCardsGalleryItem
-											handleOpen={handleOpen}
-											item={item}
-											key={index}
-										/>
-									)
-								})}
-							</LazyGrid2>
-						</Suspense>
+						<Grid2
+							width={'100%'}
+							container
+							spacing={0}
+							columns={{
+								mobileXs: 1,
+								mobile: 1,
+								tabletXs: 2,
+								tablet: 2,
+								laptop: 3,
+								desktop: 3,
+							}}
+						>
+							{servicesCardsList.items.map((item, index) => {
+								return (
+									<ServicesCardsGalleryItem
+										handleOpen={handleOpen}
+										item={item}
+										key={index}
+									/>
+								)
+							})}
+						</Grid2>
 					</ThemeProvider>
 				</Box>
 			</div>

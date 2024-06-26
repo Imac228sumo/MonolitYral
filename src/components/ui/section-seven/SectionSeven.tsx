@@ -91,7 +91,7 @@ export default function SectionSeven() {
 										width: '100%',
 										objectFit: 'cover',
 									}}
-									loading='lazy'
+									priority
 									draggable={false}
 								/>
 							</div>
